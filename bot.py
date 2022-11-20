@@ -39,11 +39,6 @@ async def ban(ctx, member : discord.Member):
 @client.command()
 async def reset(ctx):
     print('resetting')
-
-    invites = await ctx.guild.invites()
-    if invites != []:
-        for invite in invites:
-            await invite.delete()
     async for ban in ctx.guild.bans():
         await ban.unban()
     channel = ctx.guild.get_channel(828418370776989719)
@@ -65,10 +60,14 @@ async def reset(ctx):
 
 @client.command()
 async def start(ctx):
+    invites = await ctx.guild.invites()
+    if invites != []:
+        for invite in invites:
+            await invite.delete()
     channel = ctx.guild.get_channel(828418370776989719)
     await channel.send('Starting BanBot Game')
     await channel.set_permissions(ctx.guild.default_role, view_channel=True)
     await ctx.send('@everyone THE GAMES HAVE BEGUN. BAN YOUR FRIENDS')
 
-#keep_alive()
+#ADD YOUR TOKEN!
 client.run("#YourToken")
